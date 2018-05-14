@@ -269,13 +269,13 @@
 
     var animFrameAmount = settings.animation ? 1 / settings.animationSteps : 1; //if settings.animationSteps is 10, animFrameAmount is 0.1
     var animCount = settings.animation ? 0 : 1;
-    var triggerAnimation = function triggerAnimation() {
+    function triggerAnimation() {
       if (settings.animation) {
         requestAnimFrame(animationLoop);
       } else {
         drawPieSegments(1);
       }
-    };
+    }
     function animationLoop() {
       animCount += animFrameAmount; //animCount start from 0, after "settings.animationSteps"-times executed, animCount reaches 1.
       drawPieSegments(easingFunction(animCount));
