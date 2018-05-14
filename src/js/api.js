@@ -1,17 +1,17 @@
-((doc) => {
-    window.addEventListener("load", () => {
+(function (doc) {
+    window.addEventListener("load", function apiOnDomReady() {
 
-        const loading = doc.querySelector(".loading")
-          , errorDiv = doc.querySelector(".error")
-          , errorMessage = errorDiv.querySelector(".message");
-        let token = Url.queryString("token");
-        let input = (Url.queryString("user") || location.search).replace(/^\?@?/g, "")
+        var loading = doc.querySelector(".loading"),
+            errorDiv = doc.querySelector(".error"),
+            errorMessage = errorDiv.querySelector(".message"),
+            input = (Url.queryString("user") || location.search).replace(/^\?@?/g, ""),
+            token = Url.queryString("token");
 
         if (!input) {
             return;
         }
-        
-        token = Url.queryString("token") || undefined;
+
+        var token = Url.queryString("token") || undefined;
         if (token) {
             input = Url.queryString("input");
             if (!input) {
@@ -22,9 +22,10 @@
 
         loading.classList.add("visible");
 
-        const getStats = (input, callback) => {
 
-            let fromLocalStorage = localStorage[input];
+        function getStats(input, callback) {
+
+            var fromLocalStorage = localStorage[input];
             try {
                 fromLocalStorage = JSON.parse(fromLocalStorage);
             } catch (e) {
@@ -35,17 +36,19 @@
                 return callback(null, fromLocalStorage);
             }
 
-            const polyglot = new GitHubPolyglot(input, token);
-            let func = polyglot.userStats;
+            var polyglot = new GitHubPolyglot(input, token),
+                func = polyglot.userStats;
 
-            if (localStorage[input]) { return callback(null, localStorage[input]); }
+            if (localStorage[input]) {
+                return callback(null, localStorage[input]);
+            }
 
 
             if (polyglot.repo) {
                 func = polyglot.repoStats
             }
 
-            func.call(polyglot, (err, stats) => {
+            func.call(polyglot, function (err, stats) {
                 if (err) {
                     return callback(err);
                 }
@@ -60,7 +63,7 @@
             });
         }
 
-        getStats(input, (err, stats) => {
+        getStats(input, function (err, stats) {
             loading.classList.remove("visible");
             if (err) {
                 errorDiv.classList.add("visible");

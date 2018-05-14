@@ -1,7 +1,11 @@
-((doc) => {
+(function (doc) {
 
-    const qs = doc.querySelector.bind(doc);
-    const qsa = (selector) => [].slice.call(doc.querySelectorAll(selector));
+    var qs = doc.querySelector.bind(doc);
+
+    function qsa(selector) {
+        return [].slice.call(doc.querySelectorAll(selector));
+    }
+
 
     if (!Element.prototype.closest) {
         /**
@@ -13,10 +17,10 @@
          * @param {string} selector
          * @returns {Element|null}
          */
-        Element.prototype.closest = (selector) => {
-            let currentElement = this;
+        Element.prototype.closest = function (selector) {
+            var currentElement = this;
             while (this.parentNode !== null) {
-                const currentParent = currentElement.parentNode;
+                var currentParent = currentElement.parentNode;
                 if (currentParent === null) {
                     return null;
                 }
@@ -29,24 +33,23 @@
         };
     }
 
-    const clearChildren = (element) => {
-        while(element.firstChild) {
+    function clearChildren(element) {
+        while (element.firstChild) {
             element.removeChild(element.firstChild);
         }
     }
 
-    window.addEventListener("load", () => {
+    window.addEventListener("load", function () {
 
         //Elements
-        const iframe = qs("#graph")
-          , input = qs(".form-elm")
-          , username = qs(".username")
-          , embed = qs(".embed textarea")
-          , twitter = qs(".popup a.twitter")
-          , facebook = qs(".popup a.facebook")
-          , gplus = qs(".popup a.gplus")
-          , apiUrl = "https://ionicabizau.github.io/github-profile-languages/api.html"
-          ;
+        var iframe = qs("#graph"),
+            input = qs(".form-elm"),
+            username = qs(".username"),
+            embed = qs(".embed textarea"),
+            twitter = qs(".popup a.twitter"),
+            facebook = qs(".popup a.facebook"),
+            gplus = qs(".popup a.gplus"),
+            apiUrl = "https://muniz95.github.io/github-profile-languages/api.html";
 
         /**
          * check
@@ -57,14 +60,14 @@
          * @return {undefined}
          */
         function check() {
-            const queryStringUser = Url.queryString("user");
-            const user = decodeURIComponent(queryStringUser);
+            var queryStringUser = Url.queryString("user");
+            var user = decodeURIComponent(queryStringUser);
             if (!user) {
                 username.textContent = "GitHub Profile";
                 return;
             }
             clearChildren(username);
-            const a = document.createElement("a");
+            var a = document.createElement("a");
             a.setAttribute("target", "blank");
             a.href = "https://github.com/" + (user[0] === "@" ? user.slice(1) : user);
             a.textContent = user[0] === "@" ? user : "@" + user;
@@ -77,7 +80,7 @@
             embed.value = "<iframe width=\"600\" height=\"600\" src=\"" + apiUrl + "?" + user + "\" frameborder=\"0\"></iframe>";
 
             // Update social
-            const escaped = encodeURI(location.href);
+            var escaped = encodeURI(location.href);
 
             facebook.href = "https://www.facebook.com/sharer/sharer.php?u=" + escaped;
             twitter.href = "http://twitter.com/intent/tweet?text=A pie graph with my programming languages.&url=" + escaped;
@@ -85,11 +88,11 @@
         }
 
         // Writing the username
-        let timer = null;
-        input.addEventListener("input", () => {
+        var timer = null;
+        input.addEventListener("input", function () {
             Url.updateSearchParam("user", this.value);
             clearTimeout(timer);
-            timer = setTimeout(() => {
+            timer = setTimeout(function () {
                 check();
             }, 1000);
         });
@@ -97,24 +100,26 @@
         check();
 
         // Popups
-        document.addEventListener("click", (event) => {
-            const target = event.target;
+        document.addEventListener("click", function popupStartListener(event) {
+            var target = event.target;
             if (target.dataset.popup !== undefined) {
                 qs(target.dataset.popup).classList.toggle("open");
             }
         });
 
-        document.addEventListener("click", (event) => {
-            const target = event.target;
-            let parentPopup;
+        document.addEventListener("click", function popupCloseListener(event) {
+            var target = event.target;
+            var parentPopup;
             if (target.classList.contains("close") && (parentPopup = target.closest(".popup")) !== null) {
                 parentPopup.classList.toggle("open");
             }
         });
 
-        window.addEventListener("keydown", (e) => {
+        window.addEventListener("keydown", function setPopupCloseAllListener(e) {
             if (e.which === 27) {
-                qsa(".popup.open").forEach(function(el) { el.classList.remove(".open"); });
+                qsa(".popup.open").forEach(function (el) {
+                    el.classList.remove(".open");
+                });
             }
         });
     });
