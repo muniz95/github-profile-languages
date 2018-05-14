@@ -23,6 +23,12 @@
     return arguments[0];
   }
 
+  function requestAnimFrame() {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
+      window.setTimeout(callback, 1000 / 60);
+    };
+  }
+
   var firstElementFromHtmlString = function firstElementFromHtmlString(string) {
     var div = document.createElement('div');
     div.innerHTML = string;
