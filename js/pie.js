@@ -13,8 +13,6 @@ var _arguments = arguments;
  * Modified by Madara Uchiha for non-jQuery environment.
  */
 ;(function () {
-  var animCount = void 0;
-
   var extend = function extend() {
     for (var i = 1; i < _arguments.length; i++) {
       for (var key in _arguments[i]) {
