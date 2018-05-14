@@ -50,7 +50,7 @@
             twitter = qs(".popup a.twitter"),
             facebook = qs(".popup a.facebook"),
             gplus = qs(".popup a.gplus"),
-            apiUrl = "https://muniz95.github.io/github-profile-languages/api.html";
+            apiUrl = "https://ionicabizau.github.io/github-profile-languages/api.html";
 
         /**
          * check

@@ -1,19 +1,19 @@
 "use strict";
 
 (function (doc) {
-    window.addEventListener("load", function () {
+    window.addEventListener("load", function apiOnDomReady() {
 
         var loading = doc.querySelector(".loading"),
             errorDiv = doc.querySelector(".error"),
-            errorMessage = errorDiv.querySelector(".message");
-        var token = Url.queryString("token");
-        var input = (Url.queryString("user") || location.search).replace(/^\?@?/g, "");
+            errorMessage = errorDiv.querySelector(".message"),
+            input = (Url.queryString("user") || location.search).replace(/^\?@?/g, ""),
+            token = Url.queryString("token");
 
         if (!input) {
             return;
         }
 
-        token = Url.queryString("token") || undefined;
+        var token = Url.queryString("token") || undefined;
         if (token) {
             input = Url.queryString("input");
             if (!input) {
@@ -24,7 +24,7 @@
 
         loading.classList.add("visible");
 
-        var getStats = function getStats(input, callback) {
+        function getStats(input, callback) {
 
             var fromLocalStorage = localStorage[input];
             try {
@@ -37,8 +37,8 @@
                 return callback(null, fromLocalStorage);
             }
 
-            var polyglot = new GitHubPolyglot(input, token);
-            var func = polyglot.userStats;
+            var polyglot = new GitHubPolyglot(input, token),
+                func = polyglot.userStats;
 
             if (localStorage[input]) {
                 return callback(null, localStorage[input]);
@@ -61,7 +61,7 @@
 
                 callback(null, stats);
             });
-        };
+        }
 
         getStats(input, function (err, stats) {
             loading.classList.remove("visible");
