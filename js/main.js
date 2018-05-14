@@ -42,8 +42,8 @@
     window.addEventListener("load", function () {
 
         //Elements
-        var /*iframe = qs("#graph")
-            ,*/input = qs(".form-elm"),
+        var iframe = qs("#graph"),
+            input = qs(".form-elm"),
             username = qs(".username"),
             embed = qs(".embed textarea"),
             twitter = qs(".popup a.twitter"),
@@ -75,7 +75,7 @@
             username.appendChild(a);
             username.appendChild(document.createTextNode("'s"));
 
-            // iframe.src = "api.html?" + user;
+            iframe.src = "api.html?" + user;
             input.value = user;
             embed.value = "<iframe width=\"600\" height=\"600\" src=\"" + apiUrl + "?" + user + "\" frameborder=\"0\"></iframe>";
 
