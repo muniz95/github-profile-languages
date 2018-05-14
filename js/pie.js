@@ -11,30 +11,32 @@
  *
  * Modified by Madara Uchiha for non-jQuery environment.
  */
-;
-(function () {
-
+;(function () {
   function extend() {
     for (var i = 1; i < arguments.length; i++) {
       for (var key in arguments[i]) {
-        if (arguments[i].hasOwnProperty(key)) arguments[0][key] = arguments[i][key];
+        if (arguments[i].hasOwnProperty(key)) {
+          arguments[0][key] = arguments[i][key];
+        }
       }
-    }return arguments[0];
+    }
+    return arguments[0];
   }
 
-  function firstElementFromHtmlString(string) {
+  var firstElementFromHtmlString = function firstElementFromHtmlString(string) {
     var div = document.createElement('div');
     div.innerHTML = string;
     return div.childNodes[0];
-  }
+  };
 
   window.drawPieChart = function (data, options) {
     var W = this.clientWidth,
         H = this.clientHeight,
-        y = 0;
+        y = 0,
+        legend = void 0;
 
     if (options.legend) {
-      var legend = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      legend = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       legend.classList.add("legend");
       data.forEach(function (cData) {
         var c = document.createElementNS('http://www.w3.org/2000/svg', 'g');
@@ -198,7 +200,6 @@
       }
       settings.onPieMouseenter.apply(this, [e, data]);
     }
-
     function pathMouseLeave(e) {
       var index = this.dataset.order;
       tip.style.opacity = 0;
@@ -207,19 +208,17 @@
       }
       settings.onPieMouseleave.apply(this, [e, data]);
     }
-
     function pathMouseMove(e) {
       tip.style.top = e.pageY + settings.tipOffsetY + "px";
       tip.style.left = e.pageX - tip.clientWidth / 2 + settings.tipOffsetX + "px";
     }
-
     function pathClick(e) {
       var index = this.dataset.order;
       var targetGroup = groups[index];
-      for (var i = 0, len = data.length; i < len; i++) {
-        if (i === index) continue;
-        groups[i].setAttribute("data-active", "");
-        lightpies[i].style.opacity = settings.lightPiesOpacity;
+      for (var _i = 0, _len = data.length; _i < _len; _i++) {
+        if (_i === index) continue;
+        groups[_i].setAttribute("data-active", "");
+        lightpies[_i].style.opacity = settings.lightPiesOpacity;
       }
       if (targetGroup.getAttribute("data-active") === "active") {
         targetGroup.setAttribute("data-active", "");
@@ -231,10 +230,10 @@
       settings.onPieClick.apply(this, [e, data]);
     }
 
-    function drawPieSegments(animationDecimal) {
-      var startRadius = -PI / 2,
-          //-90 degree
-      rotateAnimation = 1;
+    var drawPieSegments = function drawPieSegments(animationDecimal) {
+      var startRadius = -PI / 2; //-90 degree
+      var rotateAnimation = 1;
+
       if (settings.animation) {
         rotateAnimation = animationDecimal; //count up between0~1
       }
@@ -242,8 +241,8 @@
       pathGroup.setAttribute("opacity", animationDecimal);
 
       //draw each path
-      for (var i = 0, len = data.length; i < len; i++) {
-        var segmentAngle = rotateAnimation * (data[i].value / segmentTotal * (PI * 2)),
+      for (var _i2 = 0, _len2 = data.length; _i2 < _len2; _i2++) {
+        var segmentAngle = rotateAnimation * (data[_i2].value / segmentTotal * (PI * 2)),
             //start radian
         endRadius = startRadius + segmentAngle,
             largeArc = (endRadius - startRadius) % (PI * 2) > PI ? 1 : 0,
@@ -262,16 +261,14 @@
         ];
         var cmd2 = ['M', startX2, startY2, 'A', pieRadius + settings.lightPiesOffset, pieRadius + settings.lightPiesOffset, 0, largeArc, 1, endX2, endY2, //Draw outer arc path
         'L', centerX, centerY, 'Z'];
-        pies[i].setAttribute("d", cmd.join(' '));
-        lightpies[i].setAttribute("d", cmd2.join(' '));
+        pies[_i2].setAttribute("d", cmd.join(' '));
+        lightpies[_i2].setAttribute("d", cmd2.join(' '));
         startRadius += segmentAngle;
       }
-    }
+    };
 
-    var animFrameAmount = settings.animation ? 1 / settings.animationSteps : 1,
-        //if settings.animationSteps is 10, animFrameAmount is 0.1
-    animCount = settings.animation ? 0 : 1;
-
+    var animFrameAmount = settings.animation ? 1 / settings.animationSteps : 1; //if settings.animationSteps is 10, animFrameAmount is 0.1
+    var animCount = settings.animation ? 0 : 1;
     function triggerAnimation() {
       if (settings.animation) {
         requestAnimFrame(animationLoop);
@@ -279,7 +276,6 @@
         drawPieSegments(1);
       }
     }
-
     function animationLoop() {
       animCount += animFrameAmount; //animCount start from 0, after "settings.animationSteps"-times executed, animCount reaches 1.
       drawPieSegments(easingFunction(animCount));
@@ -289,11 +285,9 @@
         settings.afterDrawed.call(this);
       }
     }
-
     function Max(arr) {
       return Math.max.apply(null, arr);
     }
-
     function Min(arr) {
       return Math.min.apply(null, arr);
     }

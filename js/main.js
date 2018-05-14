@@ -3,9 +3,10 @@
 (function (doc) {
 
     var qs = doc.querySelector.bind(doc);
-    var qsa = function qsa(selector) {
+
+    function qsa(selector) {
         return [].slice.call(doc.querySelectorAll(selector));
-    };
+    }
 
     if (!Element.prototype.closest) {
         /**
@@ -18,8 +19,8 @@
          * @returns {Element|null}
          */
         Element.prototype.closest = function (selector) {
-            var currentElement = undefined;
-            while (undefined.parentNode !== null) {
+            var currentElement = this;
+            while (this.parentNode !== null) {
                 var currentParent = currentElement.parentNode;
                 if (currentParent === null) {
                     return null;
@@ -28,16 +29,16 @@
                     return currentElement;
                 }
 
-                currentElement = undefined.parentNode;
+                currentElement = this.parentNode;
             }
         };
     }
 
-    var clearChildren = function clearChildren(element) {
+    function clearChildren(element) {
         while (element.firstChild) {
             element.removeChild(element.firstChild);
         }
-    };
+    }
 
     window.addEventListener("load", function () {
 
@@ -49,7 +50,7 @@
             twitter = qs(".popup a.twitter"),
             facebook = qs(".popup a.facebook"),
             gplus = qs(".popup a.gplus"),
-            apiUrl = "https://ionicabizau.github.io/github-profile-languages/api.html";
+            apiUrl = "https://muniz95.github.io/github-profile-languages/api.html";
 
         /**
          * check
@@ -100,22 +101,22 @@
         check();
 
         // Popups
-        document.addEventListener("click", function (event) {
+        document.addEventListener("click", function popupStartListener(event) {
             var target = event.target;
             if (target.dataset.popup !== undefined) {
                 qs(target.dataset.popup).classList.toggle("open");
             }
         });
 
-        document.addEventListener("click", function (event) {
+        document.addEventListener("click", function popupCloseListener(event) {
             var target = event.target;
-            var parentPopup = void 0;
+            var parentPopup;
             if (target.classList.contains("close") && (parentPopup = target.closest(".popup")) !== null) {
                 parentPopup.classList.toggle("open");
             }
         });
 
-        window.addEventListener("keydown", function (e) {
+        window.addEventListener("keydown", function setPopupCloseAllListener(e) {
             if (e.which === 27) {
                 qsa(".popup.open").forEach(function (el) {
                     el.classList.remove(".open");
