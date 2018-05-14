@@ -32,11 +32,12 @@
   window.drawPieChart = function (data, options) {
     var W = this.clientWidth,
         H = this.clientHeight,
-        y = 0;
+        y = 0,
+        legend = void 0;
 
     if (options.legend) {
-      var _legend = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      _legend.classList.add("legend");
+      legend = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      legend.classList.add("legend");
       data.forEach(function (cData) {
         var c = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -52,7 +53,7 @@
 
         c.appendChild(rect);
         c.appendChild(text);
-        _legend.appendChild(c);
+        legend.appendChild(c);
       });
       H -= y;
     }
