@@ -1,0 +1,58 @@
+{
+  "name": "github-profile-languages",
+  "version": "2.3.9",
+  "description": "GitHub profile stats, based on IonicaBizau's formidable works.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist/ && babel ./src --out-dir dist/ --copy-files",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muniz95/github-profile-languages.git"
+  },
+  "keywords": [
+    "github",
+    "graph",
+    "chart",
+    "pie"
+  ],
+  "author": "Rodrigo Muniz <rodrigo.temiski1995@gmail.com> (https://github.com/muniz95)",
+  "contributors": [
+    "Ionică Bizău <bizauionica@gmail.com> (https://ionicabizau.net)",
+    "Madara Uchiha <uchiha@madara.ninja> (https://github.com/MadaraUchiha)",
+    "Unihedron <unihedron@unihedro.com> (https://github.com/Unihedro)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/muniz95/github-profile-languages/issues"
+  },
+  "homepage": "https://github.com/muniz95/github-profile-languages",
+  "blah": {
+    "title": "GitHub Profile Languages",
+    "h_img": "http://i.imgur.com/QG6Gh5I.png",
+    "h_url": "http://muniz95.github.io/github-profile-languages?user=muniz95",
+    "description": [
+      {
+        "h2": "How to use"
+      },
+      {
+        "p": [
+          "Open the [this page in your browser](http://muniz95.github.io/github-profile-languages) and write in the textbox a GitHub username you want to fetch the programming languages graph.",
+          "Wait until the data is fetched and enjoy the graph! :smile:",
+          "If you like to embed the resulted graph, just click <kbd>Embed</kbd> and copy the embed code in your page.",
+          "Also, you can share the graph on Twitter, Facebook and Google Plus."
+        ]
+      }
+    ]
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "gh-pages": "^1.1.0",
+    "rimraf": "^2.6.2"
+  }
+}
