@@ -29,7 +29,7 @@
     return div.childNodes[0];
   };
 
-  function triggerAnimation() {
+  function triggerAnimation(settings) {
     if (settings.animation) {
       requestAnimFrame(animationLoop);
     } else {
@@ -215,7 +215,7 @@
 
     settings.beforeDraw.call(this);
     //Animation start
-    triggerAnimation();
+    triggerAnimation(settings);
 
     function pathMouseEnter(e) {
       var index = this.dataset.order;
