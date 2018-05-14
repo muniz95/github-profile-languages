@@ -13,7 +13,7 @@
  */
 ;(function () {
   function extend() {
-    for (var i = 1; i < this.arguments.length; i++) {
+    for (var i = 1; i < arguments.length; i++) {
       for (var key in arguments[i]) {
         if (arguments[i].hasOwnProperty(key)) {
           arguments[0][key] = arguments[i][key];
