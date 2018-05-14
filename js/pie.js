@@ -1,6 +1,5 @@
 'use strict';
 
-var _arguments = arguments;
 /*!
  * jquery.drawPieChart.js
  * Version: 0.3(Beta)
@@ -13,16 +12,16 @@ var _arguments = arguments;
  * Modified by Madara Uchiha for non-jQuery environment.
  */
 ;(function () {
-  var extend = function extend() {
-    for (var i = 1; i < _arguments.length; i++) {
-      for (var key in _arguments[i]) {
-        if (_arguments[i].hasOwnProperty(key)) {
-          _arguments[0][key] = _arguments[i][key];
+  function extend() {
+    for (var i = 1; i < this.arguments.length; i++) {
+      for (var key in arguments[i]) {
+        if (arguments[i].hasOwnProperty(key)) {
+          arguments[0][key] = arguments[i][key];
         }
       }
     }
-    return _arguments[0];
-  };
+    return arguments[0];
+  }
 
   var firstElementFromHtmlString = function firstElementFromHtmlString(string) {
     var div = document.createElement('div');
