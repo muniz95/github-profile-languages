@@ -30,8 +30,8 @@
   };
 
   window.drawPieChart = function (data, options) {
-    var W = undefined.clientWidth,
-        H = undefined.clientHeight,
+    var W = this.clientWidth,
+        H = this.clientHeight,
         y = 0;
 
     if (options.legend) {
@@ -103,7 +103,7 @@
     }();
 
     var wrapper = firstElementFromHtmlString('<svg width="' + W + '" height="' + (H + y) + '" viewBox="0 0 ' + W + ' ' + (H + y) + '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"></svg>');
-    undefined.appendChild(wrapper);
+    this.appendChild(wrapper);
 
     var groups = [],
         pies = [],
@@ -186,7 +186,7 @@
       groups[i].appendChild(lp);
     }
 
-    settings.beforeDraw.call(undefined);
+    settings.beforeDraw.call(this);
     //Animation start
     triggerAnimation();
 
@@ -290,6 +290,6 @@
     function Min(arr) {
       return Math.min.apply(null, arr);
     }
-    return undefined;
+    return this;
   };
 })();
