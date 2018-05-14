@@ -23,43 +23,11 @@
     return arguments[0];
   }
 
-  function requestAnimFrame() {
-    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
-      window.setTimeout(callback, 1000 / 60);
-    };
-  }
-
   var firstElementFromHtmlString = function firstElementFromHtmlString(string) {
     var div = document.createElement('div');
     div.innerHTML = string;
     return div.childNodes[0];
   };
-
-  function triggerAnimation(settings) {
-    if (settings.animation) {
-      requestAnimFrame(animationLoop);
-    } else {
-      drawPieSegments(1);
-    }
-  }
-
-  function animationLoop() {
-    animCount += animFrameAmount; //animCount start from 0, after "settings.animationSteps"-times executed, animCount reaches 1.
-    drawPieSegments(easingFunction(animCount));
-    if (animCount < 1) {
-      requestAnimFrame(arguments.callee);
-    } else {
-      settings.afterDrawed.call(this);
-    }
-  }
-
-  function Max(arr) {
-    return Math.max.apply(null, arr);
-  }
-
-  function Min(arr) {
-    return Math.min.apply(null, arr);
-  }
 
   window.drawPieChart = function (data, options) {
     var W = this.clientWidth,
@@ -221,7 +189,7 @@
 
     settings.beforeDraw.call(this);
     //Animation start
-    triggerAnimation(settings);
+    triggerAnimation();
 
     function pathMouseEnter(e) {
       var index = this.dataset.order;
@@ -301,6 +269,28 @@
 
     var animFrameAmount = settings.animation ? 1 / settings.animationSteps : 1; //if settings.animationSteps is 10, animFrameAmount is 0.1
     var animCount = settings.animation ? 0 : 1;
+    function triggerAnimation() {
+      if (settings.animation) {
+        requestAnimFrame(animationLoop);
+      } else {
+        drawPieSegments(1);
+      }
+    }
+    function animationLoop() {
+      animCount += animFrameAmount; //animCount start from 0, after "settings.animationSteps"-times executed, animCount reaches 1.
+      drawPieSegments(easingFunction(animCount));
+      if (animCount < 1) {
+        requestAnimFrame(arguments.callee);
+      } else {
+        settings.afterDrawed.call(this);
+      }
+    }
+    function Max(arr) {
+      return Math.max.apply(null, arr);
+    }
+    function Min(arr) {
+      return Math.min.apply(null, arr);
+    }
     return this;
   };
 })();
