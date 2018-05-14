@@ -90,7 +90,7 @@
         // Writing the username
         var timer = null;
         input.addEventListener("input", function () {
-            Url.updateSearchParam("user", undefined.value);
+            Url.updateSearchParam("user", this.value);
             clearTimeout(timer);
             timer = setTimeout(function () {
                 check();
