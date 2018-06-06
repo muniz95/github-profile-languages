@@ -42,14 +42,14 @@
     window.addEventListener("load", function () {
 
         //Elements
-        var iframe = qs("#graph"),
+        var iframe = qs("#cards"),
             input = qs(".form-elm"),
             username = qs(".username"),
             embed = qs(".embed textarea"),
             twitter = qs(".popup a.twitter"),
             facebook = qs(".popup a.facebook"),
             gplus = qs(".popup a.gplus"),
-            apiUrl = "https://muniz95.github.io/github-profile-languages/api.html";
+            apiUrl = "https://muniz95.github.io/github-profile-languages/dashboard.html";
 
         /**
          * check
@@ -75,7 +75,7 @@
             username.appendChild(a);
             username.appendChild(document.createTextNode("'s"));
 
-            iframe.src = "api.html?" + user;
+            iframe.src = "dashboard.html?" + user;
             input.value = user;
             embed.value = "<iframe width=\"600\" height=\"600\" src=\"" + apiUrl + "?" + user + "\" frameborder=\"0\"></iframe>";
 
@@ -124,3 +124,14 @@
         });
     });
 })(document);
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+        .register('sw.js')
+        .then(function (reg) {
+            console.log('Service worker Registered');
+        })
+        .catch(function (err) {
+            console.log('erro', err);
+        });
+}

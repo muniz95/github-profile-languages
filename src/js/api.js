@@ -1,6 +1,29 @@
 (function (doc) {
     window.addEventListener("load", function apiOnDomReady() {
 
+        const cardBuilder = (stat, totalRepos) => {
+            const card = doc.createElement('div');
+            const cardHeader = doc.createElement('div');
+            const cardHeaderBox = doc.createElement('div');
+            const cardContent = doc.createElement('div');
+            const percentage = Math.round((stat.value / totalRepos) * 100);
+
+            card.classList.add('card');
+            cardHeader.classList.add('card-header');
+            cardHeaderBox.classList.add('card-header-box');
+            cardContent.classList.add('card-content');
+
+            cardHeaderBox.innerHTML = '&nbsp;';
+            cardHeaderBox.style.backgroundColor = stat.color;
+
+            cardContent.innerText = `${stat.title}: ${stat.value} (${percentage}%)`;
+
+            cardHeader.appendChild(cardHeaderBox);
+            card.appendChild(cardHeader);
+            card.appendChild(cardContent);
+            doc.getElementById('dashboard').appendChild(card);
+        }
+
         var loading = doc.querySelector(".loading"),
             errorDiv = doc.querySelector(".error"),
             errorMessage = errorDiv.querySelector(".message"),
@@ -75,9 +98,12 @@
                 c.title = c.label;
                 delete c.label;
             });
-            drawPieChart.call(doc.querySelector("#pieChart"), stats, {
-                legend: true
-            });
+            console.log(stats);
+            const totalRepos = stats.map(d => d.value).reduce((a, b) => a + b);
+            stats.forEach(stat => cardBuilder(stat, totalRepos));
+            // drawPieChart.call(doc.querySelector("#pieChart"), stats, {
+            //     legend: true
+            // });
         });
     });
 })(document);
