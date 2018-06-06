@@ -4,9 +4,9 @@
         <meta charset="UTF-8">
         <link rel="manifest" href="/github-profile-stats/manifest.json">
         <title>GitHub Profile Languages</title>
-        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="css/style.min.css" type="text/css" media="screen" charset="utf-8">
         <script src="js/url.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/main.min.js"></script>
     </head>
     <body class="bg-white">
         <div class="container text-center">
@@ -14,7 +14,7 @@
                 <h1><span class="username"></span> Languages</h1>
                 <p>Create a nice pie chart with the user's programming languages from their GitHub profile.</p>
                 <input class="form-elm" type="text" placeholder="@someone" autofocus="autofocus"><br>
-                <iframe id="graph" src="api.html" frameborder="0"></iframe><br>
+                <iframe id="cards" src="dashboard.html" frameborder="0"></iframe><br>
                 <button data-popup=".popup.share" class="share btn bg-green"><i class="fa fa-share-alt"></i> Share</button>
                 <button data-popup=".popup.embed" class="embed btn bg-green"><i class="fa fa-code"></i> Embed</button>
                 <a href="https://github.com/muniz95/github-profile-languages" class="btn bg-green"><i class="fa fa-github"></i> Check out the source code</a>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <p class="footer">
-                Developed with JavaScript and <i class="fa fa-heart"></i> by <a href="http://muniz95.net/">Ionică Bizău</a>
+                Developed originally by <a href="https://ionicabizau.net">Ionică Bizău</a>
             </p>
         </div>
     </body>
