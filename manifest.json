@@ -3,6 +3,6 @@
     "name": "GH Profile Stats",
     "start_url": "./",
     "display": "standalone",
-    "theme_color": "#ccccff",
-    "background_color": "#ffffff"
+    "theme_color": "#CCCCFF",
+    "background_color": "#FFFFFF"
 }
