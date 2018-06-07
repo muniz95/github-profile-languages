@@ -1,8 +1,0 @@
-{
-    "short_name": "GH Profile Stats",
-    "name": "GH Profile Stats",
-    "start_url": "./",
-    "display": "standalone",
-    "theme_color": "#ccccff",
-    "background_color": "#ffffff"
-}
