@@ -5,8 +5,12 @@
     background-color: #fff;
 }
 
+.bg-white {
+    background-color: #CCCCFF;
+}
+
 #cards {
-    width: 600px;
+    width: 100%;
     height: 600px;
 }
 
